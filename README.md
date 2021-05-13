@@ -25,7 +25,7 @@ log4j.appender.graylog.MaximumMessageSize=8192
 log4j.appender.graylog.TimestampPattern=yyyy-MM-dd HH:mm:ss,SSS
 ```
 
-###Logging code template library
+### Logging code template library
 [Code template library](util/codeTemplateLib.xml) is available in util folder.
 
 **Use the new functions, they add channel and message data to GELF message**
@@ -40,6 +40,7 @@ log4j.appender.graylog.TimestampPattern=yyyy-MM-dd HH:mm:ss,SSS
 | GlConfigPrefix    | `GL.`         | Prefix for all keys related to GraylogAdapter |
 | GL.environment    | `TEST`        | Current environment |
 | GL.program        | `NextGen Connect` |  |
+
 Every key, that has the aforementioned prefix is sent in the GELF message, but without the prefix. For example `GL.program` and `GL.environment` fields will be sent as `program` and `environment`.
 
 ---
