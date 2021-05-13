@@ -40,6 +40,7 @@ log4j.appender.graylog.TimestampPattern=yyyy-MM-dd HH:mm:ss,SSS
 | GlConfigPrefix    | `GL.`         | Prefix for all keys related to GraylogAdapter |
 | GL.environment    | `TEST`        | Current environment |
 | GL.program        | `NextGen Connect` |  |
+
 Every key, that has the aforementioned prefix is sent in the GELF message, but without the prefix. For example `GL.program` and `GL.environment` fields will be sent as `program` and `environment`.
 
 ---
