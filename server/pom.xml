@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.kaurpalang.mirth</groupId>
+        <artifactId>graylogadapter</artifactId>
+        <version>284</version>
+    </parent>
+
+    <artifactId>server</artifactId>
+
+    <properties>
+        <apache-copnfigurations2.version>2.7</apache-copnfigurations2.version>
+        <logstash-gelf.version>1.14.1</logstash-gelf.version>
+        <javax-servlet.version>4.0.1</javax-servlet.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.kaurpalang.mirth</groupId>
+            <artifactId>shared</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mirth.connect</groupId>
+            <artifactId>mirth-server</artifactId>
+            <version>${mirth.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mirth.connect</groupId>
+            <artifactId>mirth-client-core</artifactId>
+            <version>${mirth.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>biz.paluch.logging</groupId>
+            <artifactId>logstash-gelf</artifactId>
+            <version>${logstash-gelf.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-configuration2</artifactId>
+            <version>${apache-copnfigurations2.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${javax-servlet.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.kaurpalang.mirth</groupId>
+        <artifactId>graylogadapter</artifactId>
+        <version>284</version>
+    </parent>
+
+    <artifactId>shared</artifactId>
+
+    <properties>
+        <swagger.version>2.1.7</swagger.version>
+        <javax.version>2.1.1</javax.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.mirth.connect</groupId>
+            <artifactId>mirth-client-core</artifactId>
+            <version>${mirth.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>${javax.version}</version>
+        </dependency>
+    </dependencies>
+</project>
