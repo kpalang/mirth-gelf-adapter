@@ -1,42 +1,42 @@
-<codeTemplateLibrary version="3.10.0">
+<codeTemplateLibrary version="3.10.1">
     <id>9f331ca8-9f4e-422d-9aac-5f7a99f1d0f4</id>
     <name>Logging</name>
-    <revision>5</revision>
+    <revision>2</revision>
     <lastModified>
-        <time>1608643847976</time>
+        <time>1632381549042</time>
         <timezone>Europe/Tallinn</timezone>
     </lastModified>
     <description>Wrapper functions for logging.
         All functions attach MDC fields to the log message.</description>
     <includeNewChannels>true</includeNewChannels>
-    <enabledChannelIds/>
+    <enabledChannelIds />
     <disabledChannelIds/>
     <codeTemplates>
-        <codeTemplate version="3.10.0">
+        <codeTemplate version="3.10.1">
             <id>ae4b7fd6-2b8e-45b8-8e14-ae329f07816d</id>
             <name>Do not use this log method!</name>
-            <revision>13</revision>
+            <revision>4</revision>
             <lastModified>
-                <time>1608635316833</time>
+                <time>1632381854668</time>
                 <timezone>Europe/Tallinn</timezone>
             </lastModified>
             <contextSet>
                 <delegate>
-                    <contextType>CHANNEL_PREPROCESSOR</contextType>
-                    <contextType>DESTINATION_RESPONSE_TRANSFORMER</contextType>
-                    <contextType>GLOBAL_PREPROCESSOR</contextType>
-                    <contextType>CHANNEL_ATTACHMENT</contextType>
                     <contextType>DESTINATION_FILTER_TRANSFORMER</contextType>
-                    <contextType>SOURCE_RECEIVER</contextType>
-                    <contextType>CHANNEL_BATCH</contextType>
-                    <contextType>DESTINATION_DISPATCHER</contextType>
                     <contextType>GLOBAL_POSTPROCESSOR</contextType>
                     <contextType>GLOBAL_UNDEPLOY</contextType>
-                    <contextType>SOURCE_FILTER_TRANSFORMER</contextType>
-                    <contextType>CHANNEL_DEPLOY</contextType>
                     <contextType>CHANNEL_POSTPROCESSOR</contextType>
+                    <contextType>SOURCE_FILTER_TRANSFORMER</contextType>
+                    <contextType>CHANNEL_ATTACHMENT</contextType>
                     <contextType>CHANNEL_UNDEPLOY</contextType>
+                    <contextType>DESTINATION_DISPATCHER</contextType>
+                    <contextType>CHANNEL_PREPROCESSOR</contextType>
                     <contextType>GLOBAL_DEPLOY</contextType>
+                    <contextType>CHANNEL_DEPLOY</contextType>
+                    <contextType>CHANNEL_BATCH</contextType>
+                    <contextType>DESTINATION_RESPONSE_TRANSFORMER</contextType>
+                    <contextType>SOURCE_RECEIVER</contextType>
+                    <contextType>GLOBAL_PREPROCESSOR</contextType>
                 </delegate>
             </contextSet>
             <properties class="com.mirth.connect.model.codetemplates.BasicCodeTemplateProperties">
@@ -69,24 +69,13 @@
                     transactionId = defaultTransactionId
                     }
 
-                    // Set additional fields
-                    MDC.put(&apos;ngc_channel_name&apos;, channelName)
-                    MDC.put(&apos;ngc_channel_id&apos;, channelID)
-                    MDC.put(&apos;transaction_id&apos;, new java.lang.Integer(transactionId))
-
                     var priority = &apos;&apos;
                     switch (level) {
-                    case 0: priority = org.apache.log4j.Level.EMERG
-                    break
-                    case 1: priority = org.apache.log4j.Level.ALERT
-                    break
-                    case 2: priority = org.apache.log4j.Level.CRIT
+                    case 0: priority = org.apache.log4j.Level.FATAL
                     break
                     case 3: priority = org.apache.log4j.Level.ERROR
                     break
                     case 4: priority = org.apache.log4j.Level.WARN
-                    break
-                    case 5: priority = org.apache.log4j.Level.NOTICE
                     break
                     case 6: priority = org.apache.log4j.Level.INFO
                     break
@@ -95,6 +84,11 @@
                     default: priority = org.apache.log4j.Level.INFO
                     break
                     }
+
+                    // Set additional fields
+                    MDC.put(&apos;ngc_channel_name&apos;, channelName)
+                    MDC.put(&apos;ngc_channel_id&apos;, channelID)
+                    MDC.put(&apos;transaction_id&apos;, new java.lang.Integer(transactionId))
 
                     logger.log(priority, stringData)
 
@@ -105,111 +99,31 @@
                     }</code>
             </properties>
         </codeTemplate>
-        <codeTemplate version="3.10.0">
-            <id>163850bf-5cb4-480e-b346-037e9f9b056c</id>
-            <name>Log ALERT statement</name>
-            <revision>2</revision>
-            <lastModified>
-                <time>1608629454514</time>
-                <timezone>Europe/Tallinn</timezone>
-            </lastModified>
-            <contextSet>
-                <delegate>
-                    <contextType>CHANNEL_PREPROCESSOR</contextType>
-                    <contextType>DESTINATION_RESPONSE_TRANSFORMER</contextType>
-                    <contextType>GLOBAL_PREPROCESSOR</contextType>
-                    <contextType>CHANNEL_ATTACHMENT</contextType>
-                    <contextType>DESTINATION_FILTER_TRANSFORMER</contextType>
-                    <contextType>SOURCE_RECEIVER</contextType>
-                    <contextType>CHANNEL_BATCH</contextType>
-                    <contextType>DESTINATION_DISPATCHER</contextType>
-                    <contextType>GLOBAL_POSTPROCESSOR</contextType>
-                    <contextType>GLOBAL_UNDEPLOY</contextType>
-                    <contextType>SOURCE_FILTER_TRANSFORMER</contextType>
-                    <contextType>CHANNEL_DEPLOY</contextType>
-                    <contextType>CHANNEL_POSTPROCESSOR</contextType>
-                    <contextType>CHANNEL_UNDEPLOY</contextType>
-                    <contextType>GLOBAL_DEPLOY</contextType>
-                </delegate>
-            </contextSet>
-            <properties class="com.mirth.connect.model.codetemplates.BasicCodeTemplateProperties">
-                <type>FUNCTION</type>
-                <code>/**
-                    Log on level: ALERT
-
-                    @param {String} 			Message to log
-                    @param {ImmutableMessage} 	Current ImmutableMessage object
-                    */
-                    function logAlert(message, immutableMessage) {
-                    log(1, message)
-                    }</code>
-            </properties>
-        </codeTemplate>
-        <codeTemplate version="3.10.0">
-            <id>e97db265-57e1-4cdb-bc65-cb5cd51850f6</id>
-            <name>Log CRIT statement</name>
-            <revision>2</revision>
-            <lastModified>
-                <time>1608629454689</time>
-                <timezone>Europe/Tallinn</timezone>
-            </lastModified>
-            <contextSet>
-                <delegate>
-                    <contextType>CHANNEL_PREPROCESSOR</contextType>
-                    <contextType>DESTINATION_RESPONSE_TRANSFORMER</contextType>
-                    <contextType>GLOBAL_PREPROCESSOR</contextType>
-                    <contextType>CHANNEL_ATTACHMENT</contextType>
-                    <contextType>DESTINATION_FILTER_TRANSFORMER</contextType>
-                    <contextType>SOURCE_RECEIVER</contextType>
-                    <contextType>CHANNEL_BATCH</contextType>
-                    <contextType>DESTINATION_DISPATCHER</contextType>
-                    <contextType>GLOBAL_POSTPROCESSOR</contextType>
-                    <contextType>GLOBAL_UNDEPLOY</contextType>
-                    <contextType>SOURCE_FILTER_TRANSFORMER</contextType>
-                    <contextType>CHANNEL_DEPLOY</contextType>
-                    <contextType>CHANNEL_POSTPROCESSOR</contextType>
-                    <contextType>CHANNEL_UNDEPLOY</contextType>
-                    <contextType>GLOBAL_DEPLOY</contextType>
-                </delegate>
-            </contextSet>
-            <properties class="com.mirth.connect.model.codetemplates.BasicCodeTemplateProperties">
-                <type>FUNCTION</type>
-                <code>/**
-                    Log on level: CRITICAL
-
-                    @param {String} 			Message to log
-                    @param {ImmutableMessage} 	Current ImmutableMessage object
-                    */
-                    function logCrit(message, immutableMessage) {
-                    log(2, message)
-                    }</code>
-            </properties>
-        </codeTemplate>
-        <codeTemplate version="3.10.0">
+        <codeTemplate version="3.10.1">
             <id>27a5781a-81ec-4a31-90a5-a32dc89a1d26</id>
             <name>Log DEBUG statement</name>
-            <revision>2</revision>
+            <revision>1</revision>
             <lastModified>
-                <time>1608629454759</time>
+                <time>1628587718089</time>
                 <timezone>Europe/Tallinn</timezone>
             </lastModified>
             <contextSet>
                 <delegate>
-                    <contextType>CHANNEL_PREPROCESSOR</contextType>
-                    <contextType>DESTINATION_RESPONSE_TRANSFORMER</contextType>
-                    <contextType>GLOBAL_PREPROCESSOR</contextType>
-                    <contextType>CHANNEL_ATTACHMENT</contextType>
                     <contextType>DESTINATION_FILTER_TRANSFORMER</contextType>
-                    <contextType>SOURCE_RECEIVER</contextType>
-                    <contextType>CHANNEL_BATCH</contextType>
-                    <contextType>DESTINATION_DISPATCHER</contextType>
                     <contextType>GLOBAL_POSTPROCESSOR</contextType>
                     <contextType>GLOBAL_UNDEPLOY</contextType>
-                    <contextType>SOURCE_FILTER_TRANSFORMER</contextType>
-                    <contextType>CHANNEL_DEPLOY</contextType>
                     <contextType>CHANNEL_POSTPROCESSOR</contextType>
+                    <contextType>SOURCE_FILTER_TRANSFORMER</contextType>
+                    <contextType>CHANNEL_ATTACHMENT</contextType>
                     <contextType>CHANNEL_UNDEPLOY</contextType>
+                    <contextType>DESTINATION_DISPATCHER</contextType>
+                    <contextType>CHANNEL_PREPROCESSOR</contextType>
                     <contextType>GLOBAL_DEPLOY</contextType>
+                    <contextType>CHANNEL_DEPLOY</contextType>
+                    <contextType>CHANNEL_BATCH</contextType>
+                    <contextType>DESTINATION_RESPONSE_TRANSFORMER</contextType>
+                    <contextType>SOURCE_RECEIVER</contextType>
+                    <contextType>GLOBAL_PREPROCESSOR</contextType>
                 </delegate>
             </contextSet>
             <properties class="com.mirth.connect.model.codetemplates.BasicCodeTemplateProperties">
@@ -220,76 +134,36 @@
                     @param {String} 			Message to log
                     @param {ImmutableMessage} 	Current ImmutableMessage object
                     */
-                    function logDebug(message, immutableMessage) {
-                    log(7, message)
+                    function logDebug(message, connectorMessage) {
+                    log(7, message, connectorMessage)
                     }</code>
             </properties>
         </codeTemplate>
-        <codeTemplate version="3.10.0">
-            <id>87f6789c-c03b-4540-95c0-c2e339914b3a</id>
-            <name>Log EMERG statement</name>
-            <revision>2</revision>
-            <lastModified>
-                <time>1608629454841</time>
-                <timezone>Europe/Tallinn</timezone>
-            </lastModified>
-            <contextSet>
-                <delegate>
-                    <contextType>CHANNEL_PREPROCESSOR</contextType>
-                    <contextType>DESTINATION_RESPONSE_TRANSFORMER</contextType>
-                    <contextType>GLOBAL_PREPROCESSOR</contextType>
-                    <contextType>CHANNEL_ATTACHMENT</contextType>
-                    <contextType>DESTINATION_FILTER_TRANSFORMER</contextType>
-                    <contextType>SOURCE_RECEIVER</contextType>
-                    <contextType>CHANNEL_BATCH</contextType>
-                    <contextType>DESTINATION_DISPATCHER</contextType>
-                    <contextType>GLOBAL_POSTPROCESSOR</contextType>
-                    <contextType>GLOBAL_UNDEPLOY</contextType>
-                    <contextType>SOURCE_FILTER_TRANSFORMER</contextType>
-                    <contextType>CHANNEL_DEPLOY</contextType>
-                    <contextType>CHANNEL_POSTPROCESSOR</contextType>
-                    <contextType>CHANNEL_UNDEPLOY</contextType>
-                    <contextType>GLOBAL_DEPLOY</contextType>
-                </delegate>
-            </contextSet>
-            <properties class="com.mirth.connect.model.codetemplates.BasicCodeTemplateProperties">
-                <type>FUNCTION</type>
-                <code>/**
-                    Log on level: EMERG
-
-                    @param {String} 			Message to log
-                    @param {ImmutableMessage} 	Current ImmutableMessage object
-                    */
-                    function logEmerg(message, immutableMessage) {
-                    log(0, message)
-                    }</code>
-            </properties>
-        </codeTemplate>
-        <codeTemplate version="3.10.0">
+        <codeTemplate version="3.10.1">
             <id>a6413be8-3ffc-4ce3-b2f4-e349332315b2</id>
             <name>Log ERROR statement</name>
-            <revision>2</revision>
+            <revision>1</revision>
             <lastModified>
-                <time>1608629454906</time>
+                <time>1628587718215</time>
                 <timezone>Europe/Tallinn</timezone>
             </lastModified>
             <contextSet>
                 <delegate>
-                    <contextType>CHANNEL_PREPROCESSOR</contextType>
-                    <contextType>DESTINATION_RESPONSE_TRANSFORMER</contextType>
-                    <contextType>GLOBAL_PREPROCESSOR</contextType>
-                    <contextType>CHANNEL_ATTACHMENT</contextType>
                     <contextType>DESTINATION_FILTER_TRANSFORMER</contextType>
-                    <contextType>SOURCE_RECEIVER</contextType>
-                    <contextType>CHANNEL_BATCH</contextType>
-                    <contextType>DESTINATION_DISPATCHER</contextType>
                     <contextType>GLOBAL_POSTPROCESSOR</contextType>
                     <contextType>GLOBAL_UNDEPLOY</contextType>
-                    <contextType>SOURCE_FILTER_TRANSFORMER</contextType>
-                    <contextType>CHANNEL_DEPLOY</contextType>
                     <contextType>CHANNEL_POSTPROCESSOR</contextType>
+                    <contextType>SOURCE_FILTER_TRANSFORMER</contextType>
+                    <contextType>CHANNEL_ATTACHMENT</contextType>
                     <contextType>CHANNEL_UNDEPLOY</contextType>
+                    <contextType>DESTINATION_DISPATCHER</contextType>
+                    <contextType>CHANNEL_PREPROCESSOR</contextType>
                     <contextType>GLOBAL_DEPLOY</contextType>
+                    <contextType>CHANNEL_DEPLOY</contextType>
+                    <contextType>CHANNEL_BATCH</contextType>
+                    <contextType>DESTINATION_RESPONSE_TRANSFORMER</contextType>
+                    <contextType>SOURCE_RECEIVER</contextType>
+                    <contextType>GLOBAL_PREPROCESSOR</contextType>
                 </delegate>
             </contextSet>
             <properties class="com.mirth.connect.model.codetemplates.BasicCodeTemplateProperties">
@@ -300,36 +174,76 @@
                     @param {String} 			Message to log
                     @param {ImmutableMessage} 	Current ImmutableMessage object
                     */
-                    function logError(message, immutableMessage) {
-                    log(3, message)
+                    function logError(message, connectorMessage) {
+                    log(3, message, connectorMessage)
                     }</code>
             </properties>
         </codeTemplate>
-        <codeTemplate version="3.10.0">
-            <id>03a1553f-27f9-4432-ae0d-f367e45b951d</id>
-            <name>Log INFO statement</name>
-            <revision>3</revision>
+        <codeTemplate version="3.10.1">
+            <id>87f6789c-c03b-4540-95c0-c2e339914b3a</id>
+            <name>Log FATAL statement</name>
+            <revision>1</revision>
             <lastModified>
-                <time>1608633498327</time>
+                <time>1628587718327</time>
                 <timezone>Europe/Tallinn</timezone>
             </lastModified>
             <contextSet>
                 <delegate>
-                    <contextType>CHANNEL_PREPROCESSOR</contextType>
-                    <contextType>DESTINATION_RESPONSE_TRANSFORMER</contextType>
-                    <contextType>GLOBAL_PREPROCESSOR</contextType>
-                    <contextType>CHANNEL_ATTACHMENT</contextType>
                     <contextType>DESTINATION_FILTER_TRANSFORMER</contextType>
-                    <contextType>SOURCE_RECEIVER</contextType>
-                    <contextType>CHANNEL_BATCH</contextType>
-                    <contextType>DESTINATION_DISPATCHER</contextType>
                     <contextType>GLOBAL_POSTPROCESSOR</contextType>
                     <contextType>GLOBAL_UNDEPLOY</contextType>
-                    <contextType>SOURCE_FILTER_TRANSFORMER</contextType>
-                    <contextType>CHANNEL_DEPLOY</contextType>
                     <contextType>CHANNEL_POSTPROCESSOR</contextType>
+                    <contextType>SOURCE_FILTER_TRANSFORMER</contextType>
+                    <contextType>CHANNEL_ATTACHMENT</contextType>
                     <contextType>CHANNEL_UNDEPLOY</contextType>
+                    <contextType>DESTINATION_DISPATCHER</contextType>
+                    <contextType>CHANNEL_PREPROCESSOR</contextType>
                     <contextType>GLOBAL_DEPLOY</contextType>
+                    <contextType>CHANNEL_DEPLOY</contextType>
+                    <contextType>CHANNEL_BATCH</contextType>
+                    <contextType>DESTINATION_RESPONSE_TRANSFORMER</contextType>
+                    <contextType>SOURCE_RECEIVER</contextType>
+                    <contextType>GLOBAL_PREPROCESSOR</contextType>
+                </delegate>
+            </contextSet>
+            <properties class="com.mirth.connect.model.codetemplates.BasicCodeTemplateProperties">
+                <type>FUNCTION</type>
+                <code>/**
+                    Log on level: FATAL
+
+                    @param {String} 			Message to log
+                    @param {ImmutableMessage} 	Current ImmutableMessage object
+                    */
+                    function logFatal(message, connectorMessage) {
+                    log(0, message, connectorMessage)
+                    }</code>
+            </properties>
+        </codeTemplate>
+        <codeTemplate version="3.10.1">
+            <id>03a1553f-27f9-4432-ae0d-f367e45b951d</id>
+            <name>Log INFO statement</name>
+            <revision>1</revision>
+            <lastModified>
+                <time>1628587718422</time>
+                <timezone>Europe/Tallinn</timezone>
+            </lastModified>
+            <contextSet>
+                <delegate>
+                    <contextType>DESTINATION_FILTER_TRANSFORMER</contextType>
+                    <contextType>GLOBAL_POSTPROCESSOR</contextType>
+                    <contextType>GLOBAL_UNDEPLOY</contextType>
+                    <contextType>CHANNEL_POSTPROCESSOR</contextType>
+                    <contextType>SOURCE_FILTER_TRANSFORMER</contextType>
+                    <contextType>CHANNEL_ATTACHMENT</contextType>
+                    <contextType>CHANNEL_UNDEPLOY</contextType>
+                    <contextType>DESTINATION_DISPATCHER</contextType>
+                    <contextType>CHANNEL_PREPROCESSOR</contextType>
+                    <contextType>GLOBAL_DEPLOY</contextType>
+                    <contextType>CHANNEL_DEPLOY</contextType>
+                    <contextType>CHANNEL_BATCH</contextType>
+                    <contextType>DESTINATION_RESPONSE_TRANSFORMER</contextType>
+                    <contextType>SOURCE_RECEIVER</contextType>
+                    <contextType>GLOBAL_PREPROCESSOR</contextType>
                 </delegate>
             </contextSet>
             <properties class="com.mirth.connect.model.codetemplates.BasicCodeTemplateProperties">
@@ -345,71 +259,31 @@
                     }</code>
             </properties>
         </codeTemplate>
-        <codeTemplate version="3.10.0">
-            <id>79b4ee77-5847-49ba-b70f-ac8dae50501d</id>
-            <name>Log NOTICE statement</name>
-            <revision>2</revision>
-            <lastModified>
-                <time>1608629455028</time>
-                <timezone>Europe/Tallinn</timezone>
-            </lastModified>
-            <contextSet>
-                <delegate>
-                    <contextType>CHANNEL_PREPROCESSOR</contextType>
-                    <contextType>DESTINATION_RESPONSE_TRANSFORMER</contextType>
-                    <contextType>GLOBAL_PREPROCESSOR</contextType>
-                    <contextType>CHANNEL_ATTACHMENT</contextType>
-                    <contextType>DESTINATION_FILTER_TRANSFORMER</contextType>
-                    <contextType>SOURCE_RECEIVER</contextType>
-                    <contextType>CHANNEL_BATCH</contextType>
-                    <contextType>DESTINATION_DISPATCHER</contextType>
-                    <contextType>GLOBAL_POSTPROCESSOR</contextType>
-                    <contextType>GLOBAL_UNDEPLOY</contextType>
-                    <contextType>SOURCE_FILTER_TRANSFORMER</contextType>
-                    <contextType>CHANNEL_DEPLOY</contextType>
-                    <contextType>CHANNEL_POSTPROCESSOR</contextType>
-                    <contextType>CHANNEL_UNDEPLOY</contextType>
-                    <contextType>GLOBAL_DEPLOY</contextType>
-                </delegate>
-            </contextSet>
-            <properties class="com.mirth.connect.model.codetemplates.BasicCodeTemplateProperties">
-                <type>FUNCTION</type>
-                <code>/**
-                    Log on level: NOTICE
-
-                    @param {String} 			Message to log
-                    @param {ImmutableMessage} 	Current ImmutableMessage object
-                    */
-                    function logNotice(message, immutableMessage) {
-                    log(5, message)
-                    }</code>
-            </properties>
-        </codeTemplate>
-        <codeTemplate version="3.10.0">
+        <codeTemplate version="3.10.1">
             <id>0c74920b-e599-422a-85b1-e0d406c692c3</id>
             <name>Log WARNING statement</name>
-            <revision>3</revision>
+            <revision>1</revision>
             <lastModified>
-                <time>1608629704913</time>
+                <time>1628587718511</time>
                 <timezone>Europe/Tallinn</timezone>
             </lastModified>
             <contextSet>
                 <delegate>
-                    <contextType>CHANNEL_PREPROCESSOR</contextType>
-                    <contextType>DESTINATION_RESPONSE_TRANSFORMER</contextType>
-                    <contextType>GLOBAL_PREPROCESSOR</contextType>
-                    <contextType>CHANNEL_ATTACHMENT</contextType>
                     <contextType>DESTINATION_FILTER_TRANSFORMER</contextType>
-                    <contextType>SOURCE_RECEIVER</contextType>
-                    <contextType>CHANNEL_BATCH</contextType>
-                    <contextType>DESTINATION_DISPATCHER</contextType>
                     <contextType>GLOBAL_POSTPROCESSOR</contextType>
                     <contextType>GLOBAL_UNDEPLOY</contextType>
-                    <contextType>SOURCE_FILTER_TRANSFORMER</contextType>
-                    <contextType>CHANNEL_DEPLOY</contextType>
                     <contextType>CHANNEL_POSTPROCESSOR</contextType>
+                    <contextType>SOURCE_FILTER_TRANSFORMER</contextType>
+                    <contextType>CHANNEL_ATTACHMENT</contextType>
                     <contextType>CHANNEL_UNDEPLOY</contextType>
+                    <contextType>DESTINATION_DISPATCHER</contextType>
+                    <contextType>CHANNEL_PREPROCESSOR</contextType>
                     <contextType>GLOBAL_DEPLOY</contextType>
+                    <contextType>CHANNEL_DEPLOY</contextType>
+                    <contextType>CHANNEL_BATCH</contextType>
+                    <contextType>DESTINATION_RESPONSE_TRANSFORMER</contextType>
+                    <contextType>SOURCE_RECEIVER</contextType>
+                    <contextType>GLOBAL_PREPROCESSOR</contextType>
                 </delegate>
             </contextSet>
             <properties class="com.mirth.connect.model.codetemplates.BasicCodeTemplateProperties">
@@ -420,8 +294,8 @@
                     @param {String} 			Message to log
                     @param {ImmutableMessage} 	Current ImmutableMessage object
                     */
-                    function logWarning(message, immutableMessage) {
-                    log(4, message)
+                    function logWarning(message, connectorMessage) {
+                    log(4, message, connectorMessage)
                     }</code>
             </properties>
         </codeTemplate>
