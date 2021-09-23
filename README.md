@@ -1,5 +1,5 @@
 # Gelf Messages adapter for Mirth
-### NB! This plugin was originally not intended for common use. It is heavily leaned towards my personal need and probably will most likely receive no updates. This repository is purely for proof-of-concept
+### NB! This plugin was originally not intended for common use. It is heavily leaned towards my personal need and will most likely receive no updates. This repository is purely for proof-of-concept
 
 ---
 ### Logstash-gelf
